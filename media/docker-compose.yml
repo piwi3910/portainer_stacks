@@ -81,6 +81,7 @@ services:
       - TZ=Asia/Dubai
     volumes:
       - /data/app/nzbhydra2/config:/config
+      - /data/app/jackett/blackhole:/downloads
     ports:
       - 5076:5076
     restart: unless-stopped

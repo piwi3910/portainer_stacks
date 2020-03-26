@@ -1,0 +1,28 @@
+docker run \
+-d \
+--gpus all \
+--name plex \
+-p 32400:32400/tcp \
+-p 3005:3005/tcp \
+-p 8324:8324/tcp \
+-p 32469:32469/tcp \
+-p 1900:1900/udp \
+-p 32410:32410/udp \
+-p 32412:32412/udp \
+-p 32413:32413/udp \
+-p 32414:32414/udp \
+-e TZ="Asia/Dubai" \
+-e ADVERTISE_IP="http://192.168.0.17:32400/" \
+-e HOSTNAME="nas720" \
+-e PLEX_UID="1001" \
+-e PLEX_GID="1001" \
+-e CHANGE_CONFIG_DIR_OWNERSHIP="true" \
+-e ALLOWED_NETWORKS="192.168.0.0/16,172.16.0.0/16" \
+-h nas720 \
+-v /data/app/plex/config:/config \
+-v /data/app/plex/transcode:/transcode \
+-v /data/media/:/data \
+-device=/dev/dri/card0:/dev/dri/card0 \
+-device=/dev/dri/renderD128:/dev/dri/renderD128 \
+--restart always \
+plexinc/pms-docker:plexpass
