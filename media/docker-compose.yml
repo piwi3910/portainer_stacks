@@ -58,3 +58,29 @@ services:
     ports:
       - 8686:8686
     restart: unless-stopped
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/bazarr/config:/config
+      - /data/media/Movies:/movies
+      - /data/media/Series:/tv
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+  nzbhydra2:
+    image: hotio/nzbhydra2
+    container_name: nzbhydra2
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/nzbhydra2/config:/config
+    ports:
+      - 5076:5076
+    restart: unless-stopped
