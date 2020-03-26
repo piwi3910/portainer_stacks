@@ -11,7 +11,7 @@ services:
     volumes:
       - path to /data/app/sabnzbd/config:/config
       - path to /data/app/sabnzbd/downloads:/downloads
-      - path to /data/app/sabnzbd/incomplete-downloads downloads:/incomplete-downloads
+      - path to /data/app/sabnzbd/incomplete-downloads:/incomplete-downloads
     ports:
       - 8080:8080
       - 9090:9090
