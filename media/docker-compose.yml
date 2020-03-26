@@ -30,3 +30,17 @@ services:
     ports:
       - 8989:8989
     restart: unless-stopped
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/radarr/config:/config
+      - /data/media/Movies:/movies
+      - /data/app/sabnzbd/downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
