@@ -81,7 +81,7 @@ services:
       - TZ=Asia/Dubai
     volumes:
       - /data/app/nzbhydra2/config:/config
-      - /data/app/jackett/blackhole:/downloads
+      - /data/app/jackett/blackhole:/blackhole
     ports:
       - 5076:5076
     restart: unless-stopped
@@ -94,7 +94,7 @@ services:
       - TZ=Asia/Dubai
     volumes:
       - /data/app/jackett/config:/config
-      - /data/app/jackett/blackhole:/downloads
+      - /data/app/jackett/blackhole:/blackhole
     ports:
       - 9117:9117
     restart: unless-stopped
@@ -108,7 +108,8 @@ services:
       - TZ=Asia/Dubai
     volumes:
       - /data/app/deluge/config:/config
-      - /data/app/jackett/blackhole:/downloads
+      - /data/app/jackett/blackhole:/blackhole
+      - /data/app/deluge/downloads:/downloads
     restart: unless-stopped
   tautulli:
     image: linuxserver/tautulli
