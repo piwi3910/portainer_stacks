@@ -1,5 +1,5 @@
 ---
-version: "3.2"
+version: "2"
 services:
   sabnzbd:
     image: linuxserver/sabnzbd
@@ -9,15 +9,9 @@ services:
       - PGID=1001
       - TZ=Asia/Dubai
     volumes:
-      - type: bind
-        source: /data/app/sabnzbd/config
-        target: /config
-      - type: bind
-        source: /data/app/sabnzbd/downloads
-        target: /downloads
-      - type: bind
-        source: /data/app/sabnzbd/incomplete-downloads
-        target: /incomplete-downloads
+      - /data/app/sabnzbd/config:/config
+      - /data/app/sabnzbd/downloads:/downloads
+      - /data/app/sabnzbd/incomplete-downloads:/incomplete-downloads
     ports:
       - 8080:8080
       - 9090:9090
