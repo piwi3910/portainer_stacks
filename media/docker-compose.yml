@@ -1,0 +1,18 @@
+---
+version: "2"
+services:
+  sabnzbd:
+    image: linuxserver/sabnzbd
+    container_name: sabnzbd
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - path to /data/app/sabnzbd/config:/config
+      - path to /data/app/sabnzbd/downloads:/downloads
+      - path to /data/app/sabnzbd/incomplete-downloads downloads:/incomplete-downloads
+    ports:
+      - 8080:8080
+      - 9090:9090
+    restart: unless-stopped
