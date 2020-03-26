@@ -97,3 +97,15 @@ services:
     ports:
       - 9117:9117
     restart: unless-stopped
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
+    network_mode: host
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/deluge/config:/config
+      - /data/app/jackett/blackhole:/downloads
+    restart: unless-stopped
