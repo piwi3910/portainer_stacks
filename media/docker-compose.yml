@@ -14,7 +14,7 @@ services:
       - /data/app/sabnzbd/incomplete-downloads:/incomplete-downloads
     ports:
       - 8080:8080
-      - 9090:9090
+#      - 9090:9090
     restart: unless-stopped
   sonarr:
     image: linuxserver/sonarr
