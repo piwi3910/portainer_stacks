@@ -9,9 +9,15 @@ services:
       - PGID=1001
       - TZ=Asia/Dubai
     volumes:
-      - path to /data/app/sabnzbd/config:/config
-      - path to /data/app/sabnzbd/downloads:/downloads
-      - path to /data/app/sabnzbd/incomplete-downloads:/incomplete-downloads
+      - type: bind
+        source: /data/app/sabnzbd/config
+        target: /config
+      - type: bind
+        source: /data/app/sabnzbd/downloads
+        target: /downloads
+      - type: bind
+        source: /data/app/sabnzbd/incomplete-downloads
+        target: /incomplete-downloads
     ports:
       - 8080:8080
       - 9090:9090
