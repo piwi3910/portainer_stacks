@@ -109,3 +109,16 @@ services:
       - /data/app/deluge/config:/config
       - /data/app/jackett/blackhole:/downloads
     restart: unless-stopped
+  tautulli:
+    image: linuxserver/tautulli
+    container_name: tautulli
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/tautulli/config:/config
+#      - path to plex logs:/log
+    ports:
+      - 8181:8181
+    restart: unless-stopped
