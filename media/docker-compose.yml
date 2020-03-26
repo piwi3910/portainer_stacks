@@ -84,3 +84,16 @@ services:
     ports:
       - 5076:5076
     restart: unless-stopped
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/jackett/config:/config
+      - /data/app/jackett/blackhole:/downloads
+    ports:
+      - 9117:9117
+    restart: unless-stopped
