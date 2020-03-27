@@ -18,11 +18,14 @@ docker run \
 -e PLEX_GID="1001" \
 -e CHANGE_CONFIG_DIR_OWNERSHIP="true" \
 -e ALLOWED_NETWORKS="192.168.0.0/16,172.16.0.0/16" \
+-e NVIDIA_VISIBLE_DEVICES="all" \
+-e NVIDIA_DRIVER_CAPABILITIES="compute,video,utility" \
 -h nas720 \
 -v /data/app/plex/config:/config \
 -v /data/app/plex/transcode:/transcode \
 -v /data/media/:/data \
 -device=/dev/dri/card0:/dev/dri/card0 \
+-device=/dev/dri/card1:/dev/dri/card1 \
 -device=/dev/dri/renderD128:/dev/dri/renderD128 \
 --restart always \
 plexinc/pms-docker:plexpass
