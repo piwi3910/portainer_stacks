@@ -110,6 +110,7 @@ services:
       - /data/app/deluge/config:/config
       - /data/app/jackett/blackhole:/blackhole
       - /data/app/deluge/downloads:/downloads
+      - /data/app/deluge/incomplete-downloads:/incomplete-downloads
     restart: unless-stopped
   tautulli:
     image: linuxserver/tautulli
