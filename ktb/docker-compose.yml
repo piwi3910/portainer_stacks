@@ -1,0 +1,29 @@
+version: 2
+
+services:
+  ktb_web:
+    image: wordpress
+    restart: always
+    ports:
+      - 8880:80
+    environment:
+      WORDPRESS_DB_HOST: ktb_db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - /data/app/keepthembusy/wordpress:/var/www/html
+
+  ktb_db:
+    image: mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+    volumes:
+      - /data/app/keepthembusy/db:/var/lib/mysql
+
