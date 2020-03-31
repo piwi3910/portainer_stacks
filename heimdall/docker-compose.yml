@@ -12,4 +12,5 @@ services:
       - /data/app/heimdall/config:/config
     ports:
       - 3456:80
+      - 3457:443
     restart: unless-stopped
