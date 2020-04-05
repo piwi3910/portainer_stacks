@@ -1,20 +1,20 @@
 version: "2"
 
 services:
-  ktb_web:
+  web:
     image: wordpress
     restart: always
     ports:
-      - 8880:80
+      - 8890:80
     environment:
-      WORDPRESS_DB_HOST: ktb_db
+      WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: password
       WORDPRESS_DB_NAME: wordpress
     volumes:
       - /data/app/keepthembusy/wordpress:/var/www/html
 
-  ktb_db:
+  db:
     image: mariadb
     restart: always
     ports:
