@@ -1,0 +1,13 @@
+version: '2'
+services:
+  app:
+    image: nextcloud:fpm
+    ports:
+      - 9999:9000
+    external_links:
+      - db_mariadb_1:db
+    volumes:
+      - /data/app/nextcloud/config:/var/www/html/config
+      - /data/nextcloud:/var/www/html/data
+      - /data/app/nextcloud/apps:/var/www/html/apps
+    restart: always
