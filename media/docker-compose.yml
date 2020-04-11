@@ -140,3 +140,13 @@ services:
     ports:
       - 4040:4040
     restart: unless-stopped
+  mymediaforalexa:
+    image: bizmodeller/mymediaforalexa
+    container_name: mymediaforalexa
+    volumes:
+      - /data/app/mymediaforalexa/data:/datadir
+      - /data/media/Music:/medialibrar
+    ports:
+      - 52050:52050
+      - 52051:52051
+    restart: unless-stopped
