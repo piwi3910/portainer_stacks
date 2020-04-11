@@ -145,7 +145,7 @@ services:
     container_name: mymediaforalexa
     volumes:
       - /data/app/mymediaforalexa/data:/datadir
-      - /data/media/Music:/medialibrar
+      - /data/media/Music:/medialibrary
     ports:
       - 52050:52050
       - 52051:52051
