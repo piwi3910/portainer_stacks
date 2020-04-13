@@ -9,6 +9,8 @@ services:
       - /data/app/nextcloud/mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=Jbz49teq01!
+    env_file:
+      - db.env
 
   redis:
     image: redis:alpine
@@ -23,6 +25,8 @@ services:
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
+    env_file:
+      - db.env
     depends_on:
       - db
       - redis
