@@ -8,10 +8,10 @@ services:
     volumes:
       - db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD="Jbz49teq01!"
-      - MYSQL_DATABASE="nextcloud"
-      - MYSQL_USER="nextcloud"
-      - MYSQL_PASSWORD="Jbz49teq01!"
+      - MYSQL_ROOT_PASSWORD=Jbz49teq01!
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=Jbz49teq01!
 
   redis:
     image: redis:alpine
@@ -23,11 +23,11 @@ services:
     volumes:
       - nextcloud:/var/www/html
     environment:
-      - MYSQL_HOST="db"
-      - REDIS_HOST="redis"
-      - MYSQL_DATABASE="nextcloud"
-      - MYSQL_USER="nextcloud"
-      - MYSQL_PASSWORD= "Jbz49teq01!"
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=Jbz49teq01!
     depends_on:
       - db
       - redis
