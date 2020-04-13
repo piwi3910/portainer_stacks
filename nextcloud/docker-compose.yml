@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   db:
@@ -6,7 +6,7 @@ services:
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
     volumes:
-      - /data/app/nextcloud/mysql:/var/lib/mysql
+      - db:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=Jbz49teq01!
     env_file:
@@ -20,7 +20,7 @@ services:
     image: nextcloud:fpm-alpine
     restart: always
     volumes:
-      - /data/app/nextcloud/config:/var/www/html
+      - nextcloud:/var/www/html
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
@@ -36,7 +36,7 @@ services:
     ports:
       - 8765:80
     volumes:
-      - /data/app/nextcloud/config:/var/www/html
+      - nextcloud:/var/www/html:ro
     depends_on:
       - app
 
@@ -44,9 +44,12 @@ services:
     image: nextcloud:fpm-alpine
     restart: always
     volumes:
-      - /data/app/nextcloud/config:/var/www/html
+      - nextcloud:/var/www/html
     entrypoint: /cron.sh
     depends_on:
       - db
       - redis
 
+volumes:
+  db:
+  nextcloud:
