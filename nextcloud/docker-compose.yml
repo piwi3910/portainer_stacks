@@ -1,13 +1,49 @@
 version: '2'
+
 services:
-  app:
-    image: nextcloud
-    ports:
-      - 9999:80
-    external_links:
-      - db_mariadb_1:db
-    volumes:
-      - /data/app/nextcloud/config:/var/www/html/config
-      - /data/nextcloud:/var/www/html/data
-      - /data/app/nextcloud/apps:/var/www/html/apps
+  db:
+    image: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
+    volumes:
+      - /data/app/nextcloud/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=Jbz49teq01!
+
+  redis:
+    image: redis:alpine
+    restart: always
+
+  app:
+    image: nextcloud:fpm-alpine
+    restart: always
+    volumes:
+      - /data/app/nextcloud/config:/var/www/html
+      - /data/nextcloud:/var/www/html/data
+    environment:
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
+    depends_on:
+      - db
+      - redis
+
+  web:
+    build: ./web
+    restart: always
+    ports:
+      - 8765:80
+    volumes:
+      - /data/app/nextcloud/config:/var/www/html:ro
+    depends_on:
+      - app
+
+  cron:
+    image: nextcloud:fpm-alpine
+    restart: always
+    volumes:
+      - /data/app/nextcloud/config:/var/www/html
+    entrypoint: /cron.sh
+    depends_on:
+      - db
+      - redis
+
