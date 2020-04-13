@@ -8,10 +8,10 @@ services:
     volumes:
       - /data/app/nextcloud/mysql:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=Jbz49teq01!
+      - MYSQL_ROOT_PASSWORD=mypassword
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-      - MYSQL_PASSWORD=Jbz49teq01!
+      - MYSQL_PASSWORD=mypassword!
 
   redis:
     image: redis:alpine
@@ -27,7 +27,7 @@ services:
       - REDIS_HOST=redis
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-      - MYSQL_PASSWORD=Jbz49teq01!
+      - MYSQL_PASSWORD=mypassword!
     depends_on:
       - db
       - redis
