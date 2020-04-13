@@ -9,7 +9,7 @@ services:
     volumes:
       - /data/mysql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "Jbz49teq01!"
+      MYSQL_ROOT_PASSWORD: "mypassword"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest

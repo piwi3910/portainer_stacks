@@ -11,7 +11,7 @@ services:
       - MYSQL_ROOT_PASSWORD=mypassword
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-      - MYSQL_PASSWORD=mypassword!
+      - MYSQL_PASSWORD=mypassword
 
   redis:
     image: redis:alpine
@@ -27,7 +27,7 @@ services:
       - REDIS_HOST=redis
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-      - MYSQL_PASSWORD=mypassword!
+      - MYSQL_PASSWORD=mypassword
     depends_on:
       - db
       - redis
