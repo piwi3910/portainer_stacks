@@ -17,7 +17,7 @@ services:
       - INFLUXDB_USER_PASSWORD=${telegraph_password}
 
   grafana:
-    image: grafana:latest
+    image: grafana/grafana:latest
     restart: always
     ports:
       - 3000:3000
