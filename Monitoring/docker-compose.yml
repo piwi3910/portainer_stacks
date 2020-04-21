@@ -15,3 +15,16 @@ services:
       - INFLUXDB_ADMIN_PASSWORD=${admin_password}
       - INFLUXDB_USER=telegraf
       - INFLUXDB_USER_PASSWORD=${telegraph_password}
+
+  grafana:
+    image: grafana:latest
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - /data/app/grafana/data:/var/lib/grafana
+      - /data/app/grafana/config:/etc/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${admin_password}
+      - GF_SERVER_ENABLE_GZIP=true
