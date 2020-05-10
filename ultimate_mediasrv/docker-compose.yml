@@ -174,7 +174,7 @@ services:
       - "traefik.enable=true"
       ## HTTP Routers
       - "traefik.http.routers.nzbget-rtr.entrypoints=https"
-      - "traefik.http.routers.nzbget-rtr.rule=Host(`oauth.$DOMAINNAME`)"
+      - "traefik.http.routers.nzbget-rtr.rule=Host(`nzbget.$DOMAINNAME`)"
       - "traefik.http.routers.nzbget-rtr.tls=true"
       - "traefik.http.routers.nzbget-rtr.tls.certresolver=dns-cloudflare"
       ## Middlewares
