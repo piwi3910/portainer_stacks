@@ -54,9 +54,7 @@ services:
       - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
       - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.delayBeforeCheck=5 # To delay DNS check and reduce LE hitrate
     networks:
-      traefik_internal:
-        ipv4_address: 172.16.239.254 # You can specify a static IP
-      traefik_external:
+      external:
         ipv4_address: 172.16.238.254 # You can specify a static IP
     security_opt:
       - no-new-privileges:true
