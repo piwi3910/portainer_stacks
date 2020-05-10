@@ -13,7 +13,7 @@ networks:
     ipam:
       driver: overlay
       config:
-        - subnet: 172:16.239.0/24
+        - subnet: 172.16.239.0/24
           gateway: 172.16.239.1
   default:
     driver: bridge
