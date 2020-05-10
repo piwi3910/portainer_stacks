@@ -173,15 +173,15 @@ services:
     labels:
       - "traefik.enable=true"
       ## HTTP Routers
-      - "traefik.http.routers.oauth-rtr.entrypoints=https"
-      - "traefik.http.routers.oauth-rtr.rule=Host(`oauth.$DOMAINNAME`)"
-      - "traefik.http.routers.oauth-rtr.tls=true"
-      - "traefik.http.routers.oauth-rtr.tls.certresolver=dns-cloudflare"
+      - "traefik.http.routers.nzbget-rtr.entrypoints=https"
+      - "traefik.http.routers.nzbget-rtr.rule=Host(`oauth.$DOMAINNAME`)"
+      - "traefik.http.routers.nzbget-rtr.tls=true"
+      - "traefik.http.routers.nzbget-rtr.tls.certresolver=dns-cloudflare"
       ## Middlewares
-      - "traefik.http.routers.oauth-rtr.middlewares=chain-oauth@file"
+      - "traefik.http.routers.nzbget-rtr.middlewares=chain-oauth@file"
       ## HTTP Services
-      - "traefik.http.routers.oauth-rtr.service=oauth-svc"
-      - "traefik.http.services.oauth-svc.loadbalancer.server.port=6789"
+      - "traefik.http.routers.nzbget-rtr.service=oauth-svc"
+      - "traefik.http.services.nzbget-svc.loadbalancer.server.port=6789"
 
 #
 #  sonarr:
