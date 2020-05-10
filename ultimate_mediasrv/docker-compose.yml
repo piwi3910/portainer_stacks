@@ -1,0 +1,166 @@
+---
+version: "2"
+services:
+#  sabnzbd:
+#    image: linuxserver/sabnzbd
+#    container_name: sabnzbd
+#    environment:
+#      - PUID=1001
+#      - PGID=1001
+#      - TZ=Asia/Dubai
+#    volumes:
+#      - /data/app/sabnzbd/config:/config
+#      - /data/tmp/downloads:/downloads
+#      - /data/app/sabnzbd/incomplete-downloads:/incomplete-downloads
+#    ports:
+#      - 8080:8080
+##      - 9090:9090
+#    restart: unless-stopped
+  nzbget:
+    image: linuxserver/nzbget
+    container_name: nzbget
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/nzbget/config:/config
+      - /data/tmp/downloads:/downloads
+    ports:
+      - 6789:6789
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/sonarr/config:/config
+      - /data/media/Series:/tv
+      - /data/tmp/downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/radarr/config:/config
+      - /data/media/Movies:/movies
+      - /data/tmp/downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+  lidarr:
+    image: linuxserver/lidarr
+    container_name: lidarr
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/lidarr/config:/config
+      - /data/media/Music:/music
+      - /data/tmp/downloads:/downloads
+    ports:
+      - 8686:8686
+    restart: unless-stopped
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/bazarr/config:/config
+      - /data/media/Movies:/movies
+      - /data/media/Series:/tv
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+  nzbhydra2:
+    image: hotio/nzbhydra2
+    container_name: nzbhydra2
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/nzbhydra2/config:/config
+      - /data/app/jackett/blackhole:/blackhole
+    ports:
+      - 5076:5076
+    restart: unless-stopped
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/jackett/config:/config
+      - /data/app/jackett/blackhole:/blackhole
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
+    network_mode: host
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/deluge/config:/config
+      - /data/app/jackett/blackhole:/blackhole
+      - /data/app/deluge/downloads:/downloads
+      - /data/app/deluge/incomplete-downloads:/incomplete-downloads
+    restart: unless-stopped
+  tautulli:
+    image: linuxserver/tautulli
+    container_name: tautulli
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+    volumes:
+      - /data/app/tautulli/config:/config
+#      - path to plex logs:/log
+    ports:
+      - 8181:8181
+    restart: unless-stopped
+  airsonic:
+    image: linuxserver/airsonic
+    container_name: airsonic
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Asia/Dubai
+      - JAVA_OPTS=-Dserver.use-forward-headers=true
+    volumes:
+      - /data/app/airsonic/config:/config
+      - /data/app/airsonic/playlists:/playlists
+      - /data/media/Music:/music
+    ports:
+      - 4040:4040
+    restart: unless-stopped
+  mymediaforalexa:
+    image: bizmodeller/mymediaforalexa
+    container_name: mymediaforalexa
+    volumes:
+      - /data/app/mymediaforalexa/data:/datadir
+      - /data/media/Music:/medialibrary
+    ports:
+      - 52050:52050
+      - 52051:52051
+    restart: unless-stopped
