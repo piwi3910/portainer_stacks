@@ -444,3 +444,27 @@ services:
     networks:
       - external
 
+  heimdall:
+    image: linuxserver/heimdall
+     container_name: heimdall
+     environment:
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
+    volumes:
+      - $APP_DIR/heimdall/config:/config
+#    ports:
+#      - 3456:80
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.heimdall-rtr.entrypoints=https"
+      - "traefik.http.routers.heimdall-rtr.rule=Host(`heimdall.$DOMAINNAME`)"
+      - "traefik.http.routers.heimdall-rtr.tls=true"
+      - "traefik.http.routers.heimdall-rtr.tls.certresolver=dns-cloudflare"
+      ## Middlewares
+      - "traefik.http.routers.heimdall-rtr.middlewares=chain-oauth@file"
+      ## HTTP Services
+      - "traefik.http.routers.heimdall-rtr.service=heimdall-svc"
+      - "traefik.http.services.heimdall-svc.loadbalancer.server.port=80"
