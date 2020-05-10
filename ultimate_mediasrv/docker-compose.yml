@@ -183,24 +183,36 @@ services:
       - "traefik.http.routers.nzbget-rtr.service=oauth-svc"
       - "traefik.http.services.nzbget-svc.loadbalancer.server.port=6789"
 
-#
-#  sonarr:
-#    image: linuxserver/sonarr
-#    container_name: sonarr
-#    environment:
-#      - PUID=$USER_ID
-#      - PGID=$GROUP_ID
-#      - TZ=$TIMEZONE
-#    volumes:
-#      - $APP_DIR/sonarr/config:/config
-#      - $MEDIA_DIR/Series:/tv
-#      - $TMP_DIR/downloads:/downloads
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
+    volumes:
+      - $APP_DIR/sonarr/config:/config
+      - $MEDIA_DIR/Series:/tv
+      - $TMP_DIR/downloads:/downloads
 #    ports:
 #      - 8989:8989
-#    restart: unless-stopped
-#    networks:
-#      - traefik_internal
-#
+    restart: unless-stopped
+    networks:
+      - external
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.sonarr-rtr.entrypoints=https"
+      - "traefik.http.routers.sonarr-rtr.rule=Host(`sonarr.$DOMAINNAME`)"
+      - "traefik.http.routers.sonarr-rtr.tls=true"
+      - "traefik.http.routers.sonarr-rtr.tls.certresolver=dns-cloudflare"
+      ## Middlewares
+      - "traefik.http.routers.sonarr-rtr.middlewares=chain-oauth@file"
+      ## HTTP Services
+      - "traefik.http.routers.sonarr-rtr.service=oauth-svc"
+      - "traefik.http.services.sonarr-svc.loadbalancer.server.port=8989"
+
+
 #  radarr:
 #    image: linuxserver/radarr
 #    container_name: radarr
