@@ -65,6 +65,9 @@ services:
     ports:
       - 8989:8989
     restart: unless-stopped
+    networks:
+      - traefik_internal
+
   radarr:
     image: linuxserver/radarr
     container_name: radarr
@@ -79,6 +82,9 @@ services:
     ports:
       - 7878:7878
     restart: unless-stopped
+    networks:
+      - traefik_internal
+
   lidarr:
     image: linuxserver/lidarr
     container_name: lidarr
@@ -93,6 +99,9 @@ services:
     ports:
       - 8686:8686
     restart: unless-stopped
+    networks:
+      - traefik_internal
+
   bazarr:
     image: linuxserver/bazarr
     container_name: bazarr
@@ -107,6 +116,9 @@ services:
     ports:
       - 6767:6767
     restart: unless-stopped
+    networks:
+      - traefik_internal
+
   nzbhydra2:
     image: hotio/nzbhydra2
     container_name: nzbhydra2
@@ -120,6 +132,9 @@ services:
     ports:
       - 5076:5076
     restart: unless-stopped
+    networks:
+      - traefik_internal
+
   jackett:
     image: linuxserver/jackett
     container_name: jackett
@@ -133,6 +148,9 @@ services:
     ports:
       - 9117:9117
     restart: unless-stopped
+    networks:
+      - traefik_internal
+
   deluge:
     image: linuxserver/deluge
     container_name: deluge
@@ -147,6 +165,9 @@ services:
       - $APP_DIR/deluge/downloads:/downloads
       - $APP_DIR/deluge/incomplete-downloads:/incomplete-downloads
     restart: unless-stopped
+    networks:
+      - traefik_internal
+
   tautulli:
     image: linuxserver/tautulli
     container_name: tautulli
@@ -160,6 +181,9 @@ services:
     ports:
       - 8181:8181
     restart: unless-stopped
+    networks:
+      - traefik_internal
+
   airsonic:
     image: linuxserver/airsonic
     container_name: airsonic
@@ -175,6 +199,9 @@ services:
     ports:
       - 4040:4040
     restart: unless-stopped
+    networks:
+      - traefik_internal
+
   mymediaforalexa:
     image: bizmodeller/mymediaforalexa
     container_name: mymediaforalexa
@@ -185,3 +212,6 @@ services:
       - 52050:52050
       - 52051:52051
     restart: unless-stopped
+    networks:
+      - traefik_internal
+
