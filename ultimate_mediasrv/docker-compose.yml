@@ -11,7 +11,7 @@ networks:
   traefik_internal:
     internal: true
     ipam:
-      driver: overlay
+      driver: default
       config:
         - subnet: 172.16.239.0/24
           gateway: 172.16.239.1
