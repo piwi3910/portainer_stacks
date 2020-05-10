@@ -2,17 +2,11 @@
 version: "3.6"
 
 networks:
-  traefik_external:
+  external:
     ipam:
       driver: default
       config:
         - subnet: 172.16.238.0/24
-  traefik_internal:
-    internal: true
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.239.0/24
   default:
     driver: bridge
 
@@ -48,7 +42,7 @@ services:
       - --providers.docker.endpoint=unix:///var/run/docker.sock
       - --providers.docker.defaultrule=Host(`{{ index .Labels "com.docker.compose.service" }}.$DOMAINNAME`)
       - --providers.docker.exposedByDefault=false
-      - --providers.docker.network=${COMPOSE_PROJECT_NAME}_traefik_external
+      - --providers.docker.network=${COMPOSE_PROJECT_NAME}_external
       - --providers.docker.swarmMode=false
       - --providers.file.directory=/rules # Load dynamic configuration from one or more .toml or .yml files in a directory.
 #      - --providers.file.filename=/path/to/file # Load dynamic configuration from a file.
@@ -119,7 +113,7 @@ services:
 #    image: thomseddon/traefik-forward-auth:2.1-arm # Use this image with Raspberry Pi
     restart: unless-stopped
     networks:
-      - traefik_internal
+      - external
     security_opt:
       - no-new-privileges:true
     environment:
