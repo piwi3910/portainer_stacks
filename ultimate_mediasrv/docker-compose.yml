@@ -456,6 +456,8 @@ services:
 #    ports:
 #      - 3456:80
     restart: unless-stopped
+    networks:
+      - external
     labels:
       - "traefik.enable=true"
       ## HTTP Routers
