@@ -3,11 +3,18 @@ version: "2"
 
 networks:
   traefik_external:
-    external:
-      name: traefik_external
+    ipam:
+      driver: default
+      config:
+        - subnet: 172:16.238.0/24
+          gateway: 172.16.238.1
   traefik_internal:
-    internal:
-      name: traefik_internal
+    internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172:16.239.0/24
+          gateway: 172.16.239.1
   default:
     driver: bridge
     
