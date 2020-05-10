@@ -1,17 +1,29 @@
 ---
 version: "2"
+
+networks:
+  traefik_external:
+    external:
+      name: traefik_external
+  traefik_internal:
+    internal:
+      name: traefik_internal
+  default:
+    driver: bridge
+    
+    
 services:
 #  sabnzbd:
 #    image: linuxserver/sabnzbd
 #    container_name: sabnzbd
 #    environment:
-#      - PUID=1001
-#      - PGID=1001
-#      - TZ=Asia/Dubai
+#      - PUID=$USER_ID
+#      - PGID=$GROUP_ID
+#      - TZ=$TIMEZONE
 #    volumes:
-#      - /data/app/sabnzbd/config:/config
-#      - /data/tmp/downloads:/downloads
-#      - /data/app/sabnzbd/incomplete-downloads:/incomplete-downloads
+#      - $APP_DIR/sabnzbd/config:/config
+#      - $TMP_DIR/downloads:/downloads
+#      - $APP_DIR/sabnzbd/incomplete-downloads:/incomplete-downloads
 #    ports:
 #      - 8080:8080
 ##      - 9090:9090
@@ -20,12 +32,12 @@ services:
     image: linuxserver/nzbget
     container_name: nzbget
     environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Asia/Dubai
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
     volumes:
-      - /data/app/nzbget/config:/config
-      - /data/tmp/downloads:/downloads
+      - $APP_DIR/nzbget/config:/config
+      - $TMP_DIR/downloads:/downloads
     ports:
       - 6789:6789
     restart: unless-stopped
@@ -34,13 +46,13 @@ services:
     image: linuxserver/sonarr
     container_name: sonarr
     environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Asia/Dubai
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
     volumes:
-      - /data/app/sonarr/config:/config
-      - /data/media/Series:/tv
-      - /data/tmp/downloads:/downloads
+      - $APP_DIR/sonarr/config:/config
+      - $MEDIA_DIR/Series:/tv
+      - $TMP_DIR/downloads:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -48,13 +60,13 @@ services:
     image: linuxserver/radarr
     container_name: radarr
     environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Asia/Dubai
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
     volumes:
-      - /data/app/radarr/config:/config
-      - /data/media/Movies:/movies
-      - /data/tmp/downloads:/downloads
+      - $APP_DIR/radarr/config:/config
+      - $MEDIA_DIR/Movies:/movies
+      - $TMP_DIR/downloads:/downloads
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -62,13 +74,13 @@ services:
     image: linuxserver/lidarr
     container_name: lidarr
     environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Asia/Dubai
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
     volumes:
-      - /data/app/lidarr/config:/config
-      - /data/media/Music:/music
-      - /data/tmp/downloads:/downloads
+      - $APP_DIR/lidarr/config:/config
+      - $MEDIA_DIR/Music:/music
+      - $TMP_DIR/downloads:/downloads
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -76,13 +88,13 @@ services:
     image: linuxserver/bazarr
     container_name: bazarr
     environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Asia/Dubai
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
     volumes:
-      - /data/app/bazarr/config:/config
-      - /data/media/Movies:/movies
-      - /data/media/Series:/tv
+      - $APP_DIR/bazarr/config:/config
+      - $MEDIA_DIR/Movies:/movies
+      - $MEDIA_DIR/Series:/tv
     ports:
       - 6767:6767
     restart: unless-stopped
@@ -90,12 +102,12 @@ services:
     image: hotio/nzbhydra2
     container_name: nzbhydra2
     environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Asia/Dubai
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
     volumes:
-      - /data/app/nzbhydra2/config:/config
-      - /data/app/jackett/blackhole:/blackhole
+      - $APP_DIR/nzbhydra2/config:/config
+      - $APP_DIR/jackett/blackhole:/blackhole
     ports:
       - 5076:5076
     restart: unless-stopped
@@ -103,12 +115,12 @@ services:
     image: linuxserver/jackett
     container_name: jackett
     environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Asia/Dubai
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
     volumes:
-      - /data/app/jackett/config:/config
-      - /data/app/jackett/blackhole:/blackhole
+      - $APP_DIR/jackett/config:/config
+      - $APP_DIR/jackett/blackhole:/blackhole
     ports:
       - 9117:9117
     restart: unless-stopped
@@ -117,24 +129,24 @@ services:
     container_name: deluge
     network_mode: host
     environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Asia/Dubai
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
     volumes:
-      - /data/app/deluge/config:/config
-      - /data/app/jackett/blackhole:/blackhole
-      - /data/app/deluge/downloads:/downloads
-      - /data/app/deluge/incomplete-downloads:/incomplete-downloads
+      - $APP_DIR/deluge/config:/config
+      - $APP_DIR/jackett/blackhole:/blackhole
+      - $APP_DIR/deluge/downloads:/downloads
+      - $APP_DIR/deluge/incomplete-downloads:/incomplete-downloads
     restart: unless-stopped
   tautulli:
     image: linuxserver/tautulli
     container_name: tautulli
     environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Asia/Dubai
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
     volumes:
-      - /data/app/tautulli/config:/config
+      - $APP_DIR/tautulli/config:/config
 #      - path to plex logs:/log
     ports:
       - 8181:8181
@@ -143,14 +155,14 @@ services:
     image: linuxserver/airsonic
     container_name: airsonic
     environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Asia/Dubai
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
       - JAVA_OPTS=-Dserver.use-forward-headers=true
     volumes:
-      - /data/app/airsonic/config:/config
-      - /data/app/airsonic/playlists:/playlists
-      - /data/media/Music:/music
+      - $APP_DIR/airsonic/config:/config
+      - $APP_DIR/airsonic/playlists:/playlists
+      - $MEDIA_DIR/Music:/music
     ports:
       - 4040:4040
     restart: unless-stopped
@@ -158,8 +170,8 @@ services:
     image: bizmodeller/mymediaforalexa
     container_name: mymediaforalexa
     volumes:
-      - /data/app/mymediaforalexa/data:/datadir
-      - /data/media/Music:/medialibrary
+      - $APP_DIR/mymediaforalexa/data:/datadir
+      - $MEDIA_DIR/Music:/medialibrary
     ports:
       - 52050:52050
       - 52051:52051
