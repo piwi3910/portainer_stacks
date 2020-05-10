@@ -11,7 +11,7 @@ networks:
   traefik_internal:
     internal: true
     ipam:
-      driver: default
+      driver: overlay
       config:
         - subnet: 172:16.239.0/24
           gateway: 172.16.239.1
@@ -48,6 +48,8 @@ services:
     ports:
       - 6789:6789
     restart: unless-stopped
+    networks:
+      - traefik_internal
 
   sonarr:
     image: linuxserver/sonarr
