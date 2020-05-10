@@ -470,3 +470,32 @@ services:
       ## HTTP Services
       - "traefik.http.routers.heimdall-rtr.service=heimdall-svc"
       - "traefik.http.services.heimdall-svc.loadbalancer.server.port=80"
+
+  portainer:
+    container_name: portainer
+    image: portainer/portainer:latest
+    restart: unless-stopped
+    command: -H unix:///var/run/docker.sock
+    networks:
+      - external
+    security_opt:
+      - no-new-privileges:true
+#    ports:
+#      - "$PORTAINER_PORT:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - $APP_DIR/portainer/data:/data # Change to local directory if you want to save/transfer config locally
+    environment:
+      - TZ=$TIMEZONE
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.portainer-rtr.entrypoints=https"
+      - "traefik.http.routers.portainer-rtr.rule=Host(`portainer.$DOMAINNAME`)"
+      - "traefik.http.routers.portainer-rtr.tls=true"
+      - "traefik.http.routers.portainer-rtr.tls.certresolver=dns-cloudflare"
+      ## Middlewares
+      - "traefik.http.routers.portainer-rtr.middlewares=chain-oauth@file" # Google OAuth 2.0
+      ## HTTP Services
+      - "traefik.http.routers.portainer-rtr.service=portainer-svc"
+      - "traefik.http.services.portainer-svc.loadbalancer.server.port=9000"
