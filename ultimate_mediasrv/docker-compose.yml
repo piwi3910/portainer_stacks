@@ -154,21 +154,35 @@ services:
 #      - 8080:8080
 ##      - 9090:9090
 #    restart: unless-stopped
-#  nzbget:
-#    image: linuxserver/nzbget
-#    container_name: nzbget
-#    environment:
-#      - PUID=$USER_ID
-#      - PGID=$GROUP_ID
-#      - TZ=$TIMEZONE
-#    volumes:
-#      - $APP_DIR/nzbget/config:/config
-#      - $TMP_DIR/downloads:/downloads
+
+  nzbget:
+    image: linuxserver/nzbget
+    container_name: nzbget
+    environment:
+      - PUID=$USER_ID
+      - PGID=$GROUP_ID
+      - TZ=$TIMEZONE
+    volumes:
+      - $APP_DIR/nzbget/config:/config
+      - $TMP_DIR/downloads:/downloads
 #    ports:
 #      - 6789:6789
-#    restart: unless-stopped
-#    networks:
-#      - traefik_internal
+    restart: unless-stopped
+    networks:
+      - external
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.oauth-rtr.entrypoints=https"
+      - "traefik.http.routers.oauth-rtr.rule=Host(`oauth.$DOMAINNAME`)"
+      - "traefik.http.routers.oauth-rtr.tls=true"
+      - "traefik.http.routers.oauth-rtr.tls.certresolver=dns-cloudflare"
+      ## Middlewares
+      - "traefik.http.routers.oauth-rtr.middlewares=chain-oauth@file"
+      ## HTTP Services
+      - "traefik.http.routers.oauth-rtr.service=oauth-svc"
+      - "traefik.http.services.oauth-svc.loadbalancer.server.port=6789"
+
 #
 #  sonarr:
 #    image: linuxserver/sonarr
