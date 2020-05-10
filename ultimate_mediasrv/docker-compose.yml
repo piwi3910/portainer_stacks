@@ -151,22 +151,22 @@ services:
     networks:
       - traefik_internal
 
-  deluge:
-    image: linuxserver/deluge
-    container_name: deluge
-    network_mode: host
-    environment:
-      - PUID=$USER_ID
-      - PGID=$GROUP_ID
-      - TZ=$TIMEZONE
-    volumes:
-      - $APP_DIR/deluge/config:/config
-      - $APP_DIR/jackett/blackhole:/blackhole
-      - $APP_DIR/deluge/downloads:/downloads
-      - $APP_DIR/deluge/incomplete-downloads:/incomplete-downloads
-    restart: unless-stopped
-    networks:
-      - traefik_internal
+#  deluge:
+#    image: linuxserver/deluge
+#    container_name: deluge
+#    network_mode: host
+#    environment:
+#      - PUID=$USER_ID
+#      - PGID=$GROUP_ID
+#      - TZ=$TIMEZONE
+#    volumes:
+#      - $APP_DIR/deluge/config:/config
+#      - $APP_DIR/jackett/blackhole:/blackhole
+#      - $APP_DIR/deluge/downloads:/downloads
+#      - $APP_DIR/deluge/incomplete-downloads:/incomplete-downloads
+#    restart: unless-stopped
+#    networks:
+#      - traefik_internal
 
   tautulli:
     image: linuxserver/tautulli
