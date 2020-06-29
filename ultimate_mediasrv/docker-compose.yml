@@ -507,6 +507,14 @@ services:
       - PUID=$USER_ID
       - PGID=$GROUP_ID
       - TZ=$TIMEZONE
+      - KEEP_APP_RUNNING=1
+      - CLEAN_TMP_DIR=1
+      - AUTOMATED_CONVERSION_PRESET=General/Very Fast 1080p30
+      - AUTOMATED_CONVERSION_FORMAT=mp4
+      - AUTOMATED_CONVERSION_KEEP_SOURCE=1
+      - AUTOMATED_CONVERSION_NON_VIDEO_FILE_ACTION=ignore
+      - AUTOMATED_CONVERSION_OUTPUT_DIR=/output
+      -
     volumes:
       - $APP_DIR/handbrake/config:/config
       - $APP_DIR/handbrake/watch:/watch
