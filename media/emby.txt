@@ -1,0 +1,17 @@
+docker run -d \
+	--gpus all \
+	--name emby \
+    --volume /data/app/emby/config:/config \
+    --volume /data/media/:/data \
+    --device /dev/dri:/dev/dri \
+    --publish 8096:8096 \
+    --publish 8920:8920 \
+	-e TZ="Asia/Dubai" \
+	-e NVIDIA_VISIBLE_DEVICES="all" \
+	-e NVIDIA_DRIVER_CAPABILITIES="compute,video,utility" \
+	-h nas720 \
+	-e HOSTNAME="nas720" \
+    --env UID=1001 \
+    --env GID=1001 \
+	--restart always \
+    emby/embyserver:latest
