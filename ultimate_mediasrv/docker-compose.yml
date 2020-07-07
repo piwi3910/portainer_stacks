@@ -95,6 +95,9 @@ services:
       - "traefik.http.routers.traefik-rtr.tls.certresolver=dns-cloudflare"
       - "traefik.http.routers.traefik-rtr.tls.domains[0].main=$DOMAINNAME"
       - "traefik.http.routers.traefik-rtr.tls.domains[0].sans=*.$DOMAINNAME"
+      - "traefik.http.routers.traefik-rtr.tls.domains[1].main=$DOMAINNAME2"
+      - "traefik.http.routers.traefik-rtr.tls.domains[1].sans=*.$DOMAINNAME2"
+
 #      - "traefik.http.routers.traefik-rtr.tls.domains[1].main=$DOMAIN" # Pulls main cert for second domain
 #      - "traefik.http.routers.traefik-rtr.tls.domains[1].sans=*.$DOMAIN" # Pulls wildcard cert for second domain
       ## Services - API
@@ -537,3 +540,38 @@ services:
       ## HTTP Services
       - "traefik.http.routers.handbrake-rtr.service=handbrake-svc"
       - "traefik.http.services.handbrake-svc.loadbalancer.server.port=5800"
+
+  techtalk_wordpress:
+    depends_on:
+      - techtalk_db
+    image: wordpress:latest
+    container_name: techtalk_wordpress
+    environment:
+      - WORDPRESS_DB_HOST=techtalk_db:3306
+      - WORDPRESS_DB_USER=$TECHTALK_WP_DB_USER
+      - WORDPRESS_DB_PASSWORD=$TECHTALK_WP_DB_PASSWORD
+      - WORDPRESS_DB_NAME=$TECHTALK_WP_DB_NAME
+    restart: unless-stopped
+    networks:
+      - external
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.techtalk_wordpress-rtr.entrypoints=https"
+      - "traefik.http.routers.techtalk_wordpress-rtr.rule=Host(`www.$DOMAINNAME2`)"
+      - "traefik.http.routers.techtalk_wordpress-rtr.tls=true"
+      - "traefik.http.routers.techtalk_wordpress-rtr.tls.certresolver=dns-cloudflare"
+      ## HTTP Services
+      - "traefik.http.routers.techtalk_wordpress-rtr.service=techtalk_wordpress-svc"
+      - "traefik.http.services.techtalk_wordpress-svc.loadbalancer.server.port=80"
+
+  techtalk_db:
+     image: mysql:5.7
+     volumes:
+       - $APP_DIR/techtalk/db/db_data:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: $TECHTALK_WP_DB_ROOT
+       MYSQL_DATABASE: $TECHTALK_WP_DB_NAME
+       MYSQL_USER: $TECHTALK_WP_DB_USER
+       MYSQL_PASSWORD: $TECHTALK_WP_DB_PASSWORD
