@@ -567,9 +567,12 @@ services:
 
   techtalk_db:
      image: mysql:5.7
+     container_name: techtalk_db
      volumes:
        - $APP_DIR/techtalk/db/db_data:/var/lib/mysql
      restart: always
+     networks:
+      - external
      environment:
        MYSQL_ROOT_PASSWORD: $TECHTALK_WP_DB_ROOT
        MYSQL_DATABASE: $TECHTALK_WP_DB_NAME
