@@ -1,4 +1,9 @@
 version: '2'
+
+networks:
+  elastic:
+    driver: bridge
+
 services:
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
@@ -19,7 +24,7 @@ services:
     ports:
       - 9200:9200
     networks:
-      - elastic
+      elastic
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
     container_name: es02
@@ -37,7 +42,7 @@ services:
     volumes:
       - data02:/usr/share/elasticsearch/data
     networks:
-      - elastic
+      elastic
   es03:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
     container_name: es03
@@ -55,7 +60,7 @@ services:
     volumes:
       - data03:/usr/share/elasticsearch/data
     networks:
-      - elastic
+      elastic
   kibana:
     image: docker.elastic.co/kibana/kibana:7.8.0
     container_name: kibana
@@ -63,7 +68,7 @@ services:
       - SERVER_NAME=kibana.example.org
       - ELASTICSEARCH_HOSTS=http://es01:9200
   networks:
-      - elastic
+      elastic
 
 volumes:
   data01:
@@ -73,6 +78,3 @@ volumes:
   data03:
     driver: local
 
-networks:
-  elastic:
-    driver: bridge
