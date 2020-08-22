@@ -233,7 +233,7 @@ services:
     security_opt:
       - no-new-privileges:true
     ports:
-      - "$PORTAINER_PORT:9000"
+      - 9000:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - $APP_DIR/portainer/data:/data # Change to local directory if you want to save/transfer config locally
