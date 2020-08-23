@@ -190,7 +190,7 @@ services:
       - $APP_DIR/airsonic/playlists:/playlists
       - $MEDIA_DIR/Music:/music
     ports:
-      - 4040:4040
+      - 4041:4040
     restart: unless-stopped
     networks:
       - external
