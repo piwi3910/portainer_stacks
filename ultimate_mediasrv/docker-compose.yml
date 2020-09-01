@@ -158,8 +158,6 @@ services:
       - $APP_DIR/deluge/downloads:/downloads
       - $APP_DIR/deluge/incomplete-downloads:/incomplete-downloads
     restart: unless-stopped
-    networks:
-      - external
 
   tautulli:
     image: linuxserver/tautulli
